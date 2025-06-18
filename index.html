@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+        .password-generator {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            height: 30px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            height: 40px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        #password {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            word-wrap: break-word;
+            color: blue; /* Add this line to make the password text blue */
+        }
+    </style>
+</head>
+<body>
+    <div class="password-generator">
+        <h2>Password Generator</h2>
+        <label for="length">Password Length:</label>
+        <input type="number" id="length" value="12">
+        <br>
+        <label for="use-upper">Use Uppercase Letters:</label>
+        <input type="checkbox" id="use-upper" checked>
+        <br>
+        <label for="use-lower">Use Lowercase Letters:</label>
+        <input type="checkbox" id="use-lower" checked>
+        <br>
+        <label for="use-numbers">Use Numbers:</label>
+        <input type="checkbox" id="use-numbers" checked>
+        <br>
+        <label for="use-special">Use Special Characters:</label>
+        <input type="checkbox" id="use-special" checked>
+        <br>
+        <button id="generate-password">Generate Password</button>
+        <p id="password"></p>
+    </div>
+
+    <script>
+        document.getElementById('generate-password').addEventListener('click', function() {
+            const length = parseInt(document.getElementById('length').value);
+            const useUpper = document.getElementById('use-upper').checked;
+            const useLower = document.getElementById('use-lower').checked;
+            const useNumbers = document.getElementById('use-numbers').checked;
+            const useSpecial = document.getElementById('use-special').checked;
+
+            let characters = '';
+            if (useUpper) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (useLower) characters += 'abcdefghijklmnopqrstuvwxyz';
+            if (useNumbers) characters += '0123456789';
+            if (useSpecial) characters += '!@';                          
+
+            if (characters.length === 0) {
+                document.getElementById('password').innerText = 'Please select at least one character type.';
+                return;
+            }
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            document.getElementById('password').innerText = password;
+        });
+    </script>
+</body>
+</html>
